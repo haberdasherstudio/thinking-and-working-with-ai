@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thinking &amp; Working with AI – 4-Week Workshop with Derek Bernard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="A 4-week human-centered workshop on thinking, creating, and collaborating with AI — using a clear, empowering method you can carry into the rest of your life as the AI landscape continues to shift."
+  />
+  <style>
+    :root {
+      --bg: #050608;
+      --bg-elevated: #0d1015;
+      --accent: #f5b668;
+      --accent-soft: rgba(245, 182, 104, 0.12);
+      --text: #f5f5f5;
+      --muted: #a5acb8;
+      --border: #252b36;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.5);
+      --max-width: 900px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #131827 0%, #020306 55%, #000 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 48px;
+    }
+
+    header,
+    main,
+    footer {
+      width: 100%;
+      max-width: var(--max-width);
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      border: 1px solid rgba(245, 182, 104, 0.4);
+      background: rgba(5, 6, 8, 0.9);
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffdd9b 0, #f5b668 40%, #e5862a 100%);
+      box-shadow: 0 0 12px rgba(245, 182, 104, 0.9);
+    }
+
+    h1 {
+      margin: 16px 0 8px;
+      font-size: clamp(2.3rem, 4vw, 3rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      margin: 0 0 20px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: linear-gradient(
+          135deg,
+          rgba(245, 182, 104, 0.05),
+          rgba(5, 6, 8, 0.96)
+        );
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .promise {
+      font-size: 0.98rem;
+      color: #e4e7ee;
+      max-width: 580px;
+      line-height: 1.4;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: right;
+      min-width: 180px;
+      flex: 1;
+      align-items: flex-end;
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+    }
+
+    .hero-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: linear-gradient(135deg, #f5b668, #f18a3b);
+      color: #1a1309;
+      font-weight: 600;
+      font-size: 0.98rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: rgba(5, 6, 8, 0.9);
+      color: var(--muted);
+      font-size: 0.86rem;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    main {
+      display: grid;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .section {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: rgba(6, 8, 12, 0.95);
+      padding: 20px 18px 18px;
+    }
+
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(9, 11, 16, 0.96);
+    }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    ul li + li {
+      margin-top: 4px;
+    }
+
+    .week-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .week {
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: radial-gradient(
+        circle at top left,
+        rgba(245, 182, 104, 0.1),
+        rgba(5, 6, 8, 1)
+      );
+      border: 1px solid rgba(245, 182, 104, 0.18);
+    }
+
+    .week-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .week h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .week p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: rgba(8, 10, 15, 0.96);
+      border: 1px dashed rgba(245, 182, 104, 0.2);
+    }
+
+    .meta-label {
+      font-weight: 500;
+      color: #d7dde8;
+    }
+
+    .meta-value {
+      text-align: right;
+    }
+
+    .instructor {
+      display: grid;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.94rem;
+      color: var(--muted);
+    }
+
+    .instructor-name {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .cta-final {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .section--span {
+      grid-column: 1 / -1;
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    @media (min-width: 720px) {
+      main {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Pilot Cohort · Live on Zoom
+      </div>
+      <h1>Thinking &amp; Working with AI</h1>
+      <p class="subtitle">
+        A human-centered workshop on thinking, creating, and collaborating with AI.
+      </p>
+
+      <div class="hero-card">
+        <p class="promise">
+          A 4-week practical and creative workshop that teaches you how to think,
+          create, and build with AI — not through hacks, but through a clear,
+          empowering method you’ll use throughout your life as you navigate a
+          rapidly shifting AI landscape.
+        </p>
+        <div class="hero-meta">
+          <div><strong>4 weeks</strong> · live interactive sessions</div>
+          <div>Small group · space limited for the pilot</div>
+          <div>Designed for creatives, professionals &amp; the AI-curious</div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="#apply">
+          Apply for the Pilot Cohort
+        </a>
+        <a class="btn-secondary" href="#details">View details &amp; curriculum</a>
+        <div class="hero-note">
+          No AI hype, no doom. Just honest tools, clear thinking, and real practice.
+        </div>
+      </div>
+    </header>
+
+    <main id="details">
+      <section class="section">
+        <h2>Is this for you?</h2>
+        <p>
+          This workshop is for people who sense AI is going to shape the rest of
+          their lives and careers, but don’t want to outsource their mind, their
+          taste, or their humanity in the process.
+        </p>
+        <ul>
+          <li>You’re a creative (writer, musician, artist, performer) who wants AI to amplify your work, not flatten it.</li>
+          <li>You’re a professional who’s tired of hearing about AI and wants to actually integrate it into your workflow.</li>
+          <li>You’re AI-curious but overwhelmed by the noise, and want a grounded, human guide.</li>
+          <li>You’d like to build projects (content, courses, books, apps, offers) and use AI without losing your own voice.</li>
+        </ul>
+
+        <div class="pill-row">
+          <span class="pill">No prior technical background required</span>
+          <span class="pill">Beginner–intermediate AI users welcome</span>
+          <span class="pill">You, a laptop, and a willingness to experiment</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What you’ll learn</h2>
+        <p>
+          Each week combines live teaching, live demos, and time for questions.
+          You’ll see real workflows in action and build your own as we go.
+        </p>
+
+        <div class="week-list">
+          <div class="week">
+            <div class="week-title">Week 1 · Foundations</div>
+            <h3>Thinking with AI</h3>
+            <p>
+              Build the core mental models for working with AI: breaking down ideas,
+              structuring prompts, iterating with intention, and avoiding common
+              traps like vague asks and over-trusting the output. We’ll ground this
+              in clarity, curiosity, and conscience instead of hype.
+            </p>
+          </div>
+
+          <div class="week">
+            <div class="week-title">Week 2 · Practice</div>
+            <h3>AI in Action: Writing, Images, Audio &amp; Research</h3>
+            <p>
+              See AI used across real creative and practical tasks: outlining and
+              drafting writing, exploring visual concepts, supporting music and
+              audio workflows, and doing serious research. You’ll build a small
+              project of your own using the tools you already have access to.
+            </p>
+          </div>
+
+          <div class="week">
+            <div class="week-title">Week 3 · Systems</div>
+            <h3>Building Your Personal AI Workflow</h3>
+            <p>
+              Design a repeatable system for your life and work: how AI fits into
+              your week, how to use it without getting scattered, and how to turn
+              it into a creative and strategic partner rather than a distraction.
+            </p>
+          </div>
+
+          <div class="week">
+            <div class="week-title">Week 4 · Perspective</div>
+            <h3>Staying Human in an Accelerating AI World</h3>
+            <p>
+              Explore what it means to keep your voice, your judgment, and your
+              sense of meaning intact as AI accelerates. We’ll talk about identity,
+              creativity, agency, and how to keep using these tools in a way that
+              feels aligned with the kind of life you actually want to live.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Format, schedule &amp; investment</h2>
+        <p>
+          This first run is a <strong>pilot cohort</strong>, which means you get
+          more access, more interaction, and more room to influence the shape of
+          the experience.
+        </p>
+
+        <div class="meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Format</div>
+            <div class="meta-value">
+              4 × live 90-minute Zoom sessions<br />
+              + optional Q&amp;A / office hours
+            </div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label">When</div>
+            <div class="meta-value">
+              Next cohort: dates &amp; times will be finalized with the pilot group.<br />
+              (You’ll be asked about your availability when you apply.)
+            </div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label">Investment</div>
+            <div class="meta-value">
+              Pilot pricing: <strong>$150–$250 USD</strong><br />
+              (Sliding scale available for this first run.)
+            </div>
+          </div>
+
+          <div class="meta-item">
+            <div class="meta-label">Group size</div>
+            <div class="meta-value">
+              Intentionally small (<strong>~8–15 people</strong>)<br />
+              so there’s room for real conversation.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--span">
+        <h2>About your instructor</h2>
+        <div class="instructor">
+          <p class="instructor-name">Derek Bernard</p>
+          <p>
+            Derek is a writer, musician, educator, and performer based in San Francisco.
+            He’s published books, released original music, taught guitar and voice for
+            years, and explored AI as a creative and practical collaborator across
+            writing, music, app-building, and visual storytelling.
+          </p>
+          <p>
+            His approach is part rigor, part play: philosophical enough to take the
+            implications of AI seriously, and grounded enough to keep things human,
+            useful, and usable in everyday life.
+          </p>
+          <p>
+            This workshop is a distillation of what’s actually worked for him in his own
+            life, plus what he’s seen work with students and fellow creatives navigating
+            this new terrain.
+          </p>
+
+          <div class="cta-final">
+            <a class="btn-secondary" href="#apply">
+              Skip to application form
+            </a>
+            <span style="font-size: 0.82rem; color: var(--muted);">
+              Or keep scrolling to apply and optionally book a short call.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--span" id="apply">
+        <h2>Apply for the pilot cohort</h2>
+        <p>
+          This first round is intentionally small so we can keep it honest,
+          conversational, and tailored. If you’re interested in joining, share a
+          little about yourself below and I’ll follow up with next steps.
+        </p>
+
+        <form
+          action="https://formspree.io/f/your_form_id_here"
+          method="POST"
+          style="display: grid; gap: 10px; margin-top: 12px;"
+        >
+          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
+            <span>Your name</span>
+            <input
+              type="text"
+              name="name"
+              required
+              style="
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #252b36;
+                background: #050608;
+                color: #f5f5f5;
+              "
+            />
+          </label>
+
+          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
+            <span>Email</span>
+            <input
+              type="email"
+              name="email"
+              required
+              style="
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #252b36;
+                background: #050608;
+                color: #f5f5f5;
+              "
+            />
+          </label>
+
+          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
+            <span>What do you do, and why are you interested in this workshop?</span>
+            <textarea
+              name="why"
+              rows="4"
+              required
+              style="
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #252b36;
+                background: #050608;
+                color: #f5f5f5;
+                resize: vertical;
+              "
+            ></textarea>
+          </label>
+
+          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
+            <span>Anything specific you’d love to get out of the 4 weeks?</span>
+            <textarea
+              name="goals"
+              rows="3"
+              style="
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #252b36;
+                background: #050608;
+                color: #f5f5f5;
+                resize: vertical;
+              "
+            ></textarea>
+          </label>
+
+          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
+            <span>Rough availability (time zones welcome)</span>
+            <input
+              type="text"
+              name="availability"
+              placeholder="e.g. Weeknights after 6pm PT, weekends, etc."
+              style="
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 1px solid #252b36;
+                background: #050608;
+                color: #f5f5f5;
+              "
+            />
+          </label>
+
+          <!-- Optional hidden subject line for Formspree emails -->
+          <input
+            type="hidden"
+            name="_subject"
+            value="New Thinking & Working with AI pilot application"
+          />
+
+          <button
+            type="submit"
+            class="btn-primary"
+            style="margin-top: 4px; width: fit-content;"
+          >
+            Submit application
+          </button>
+
+          <p style="font-size: 0.8rem; color: #a5acb8; margin: 4px 0 0;">
+            I’ll review your application and follow up with details on dates, pricing,
+            and payment. There’s no commitment until you confirm your spot.
+          </p>
+        </form>
+
+        <div style="margin-top: 16px; border-top: 1px solid #252b36; padding-top: 12px;">
+          <p style="font-size: 0.9rem; color: #a5acb8; margin: 0 0 6px;">
+            Prefer to talk it through first?
+          </p>
+          <a
+            class="btn-secondary"
+            href="https://calendly.com/your-calendly-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book a quick 15-minute call
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Thinking &amp; Working with AI · Created by Derek Bernard.
+      This page was built the old-fashioned way: by a human, with a little help
+      from an AI.
+    </footer>
+  </div>
+
+  <script>
+    // Year updater
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
