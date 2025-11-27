@@ -10,19 +10,25 @@
   />
   <style>
     :root {
-      --bg: #050608;
-      --bg-elevated: #0d1015;
+      --bg: #050609;
+      --bg-elevated: #0d1117;
+      --bg-elevated-soft: #090d12;
       --accent: #f5b668;
-      --accent-soft: rgba(245, 182, 104, 0.12);
+      --accent-strong: #f18a3b;
+      --accent-soft: rgba(245, 182, 104, 0.16);
       --text: #f5f5f5;
-      --muted: #a5acb8;
-      --border: #252b36;
-      --radius-lg: 16px;
+      --muted: #9fa7b5;
+      --border-subtle: #1f2530;
+      --border-strong: #353f4f;
+      --radius-lg: 18px;
+      --radius-md: 12px;
       --radius-pill: 999px;
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.5);
-      --max-width: 900px;
+      --shadow-soft: 0 22px 55px rgba(0, 0, 0, 0.7);
+      --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.55);
+      --max-width: 1040px;
+      --transition-fast: 0.15s ease-out;
     }
 
     * {
@@ -33,7 +39,8 @@
       margin: 0;
       padding: 0;
       font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #131827 0%, #020306 55%, #000 100%);
+      background:
+        radial-gradient(circle at top, #151b2a 0%, #050609 52%, #020308 100%);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
@@ -43,7 +50,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 32px 16px 48px;
+      padding: 28px 16px 40px;
     }
 
     header,
@@ -54,87 +61,118 @@
     }
 
     header {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
+
+    /* Top badge + title */
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       border-radius: var(--radius-pill);
-      padding: 4px 12px;
-      border: 1px solid rgba(245, 182, 104, 0.4);
-      background: rgba(5, 6, 8, 0.9);
+      padding: 5px 13px;
+      border: 1px solid rgba(245, 182, 104, 0.5);
+      background: rgba(7, 9, 12, 0.94);
       color: var(--accent);
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.12em;
     }
 
     .badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: radial-gradient(circle, #ffdd9b 0, #f5b668 40%, #e5862a 100%);
-      box-shadow: 0 0 12px rgba(245, 182, 104, 0.9);
+      background: radial-gradient(circle, #ffdd9b 0, #f5b668 45%, #e5862a 100%);
+      box-shadow: 0 0 14px rgba(245, 182, 104, 1);
     }
 
     h1 {
-      margin: 16px 0 8px;
-      font-size: clamp(2.3rem, 4vw, 3rem);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
+      margin: 18px 0 6px;
+      font-size: clamp(2.5rem, 4.1vw, 3.1rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
     }
 
     .subtitle {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       font-size: 1.05rem;
       color: var(--muted);
-      max-width: 40rem;
+      max-width: 42rem;
     }
 
+    /* Hero card */
+
     .hero-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      background: linear-gradient(
-          135deg,
-          rgba(245, 182, 104, 0.05),
-          rgba(5, 6, 8, 0.96)
-        );
-      padding: 18px 18px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        linear-gradient(145deg, rgba(245, 182, 104, 0.08), rgba(5, 6, 9, 0.98));
+      padding: 18px 20px 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+      gap: 14px;
+      align-items: start;
       box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top right, rgba(245, 182, 104, 0.1) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
     }
 
     .promise {
       font-size: 0.98rem;
-      color: #e4e7ee;
-      max-width: 580px;
-      line-height: 1.4;
+      color: #e6eaf3;
+      max-width: 640px;
+      line-height: 1.45;
     }
 
     .hero-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 0.82rem;
+      display: grid;
+      gap: 4px;
+      font-size: 0.8rem;
       color: var(--muted);
       text-align: right;
-      min-width: 180px;
-      flex: 1;
-      align-items: flex-end;
+      justify-items: end;
     }
 
     .hero-meta strong {
       color: var(--accent);
+      font-weight: 600;
     }
 
+    .hero-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 182, 104, 0.4);
+      background: rgba(5, 6, 9, 0.9);
+      font-size: 0.75rem;
+    }
+
+    .hero-meta-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    /* Actions */
+
     .hero-actions {
-      margin-top: 20px;
+      margin-top: 16px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -148,20 +186,23 @@
       padding: 10px 20px;
       border-radius: var(--radius-pill);
       border: none;
-      background: linear-gradient(135deg, #f5b668, #f18a3b);
+      background: linear-gradient(140deg, var(--accent), var(--accent-strong));
       color: #1a1309;
       font-weight: 600;
-      font-size: 0.98rem;
+      font-size: 0.97rem;
       cursor: pointer;
       text-decoration: none;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
+      transition: transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
       white-space: nowrap;
     }
 
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.7);
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+      filter: brightness(1.03);
     }
 
     .btn-secondary {
@@ -170,35 +211,60 @@
       justify-content: center;
       padding: 8px 16px;
       border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
-      background: rgba(5, 6, 8, 0.9);
+      border: 1px solid var(--border-subtle);
+      background: rgba(6, 8, 12, 0.96);
       color: var(--muted);
       font-size: 0.86rem;
       text-decoration: none;
       white-space: nowrap;
+      transition: border-color var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-strong);
+      background: rgba(10, 14, 20, 0.98);
+      color: #d5d9e4;
     }
 
     .hero-note {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--muted);
     }
 
+    /* Layout */
+
     main {
       display: grid;
-      gap: 24px;
-      margin-top: 32px;
+      gap: 18px;
+      margin-top: 24px;
     }
 
     .section {
       border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      background: rgba(6, 8, 12, 0.95);
-      padding: 20px 18px 18px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated-soft);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .section + .section {
+      margin-top: 0;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 6px;
     }
 
     .section h2 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
+      margin: 0 0 6px;
+      font-size: 1.18rem;
       letter-spacing: -0.02em;
     }
 
@@ -206,23 +272,24 @@
       margin: 0 0 10px;
       color: var(--muted);
       font-size: 0.95rem;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .pill {
       font-size: 0.8rem;
       padding: 4px 10px;
       border-radius: var(--radius-pill);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-subtle);
       color: var(--muted);
-      background: rgba(9, 11, 16, 0.96);
+      background: rgba(12, 16, 22, 0.98);
+      backdrop-filter: blur(6px);
     }
 
     ul {
@@ -230,53 +297,71 @@
       padding-left: 18px;
       color: var(--muted);
       font-size: 0.94rem;
-      line-height: 1.5;
+      line-height: 1.55;
     }
 
     ul li + li {
       margin-top: 4px;
     }
 
+    /* Weeks */
+
     .week-list {
       display: grid;
-      gap: 12px;
+      gap: 10px;
       margin-top: 10px;
     }
 
     .week {
-      border-radius: 12px;
-      padding: 10px 12px;
-      background: radial-gradient(
-        circle at top left,
-        rgba(245, 182, 104, 0.1),
-        rgba(5, 6, 8, 1)
-      );
-      border: 1px solid rgba(245, 182, 104, 0.18);
+      border-radius: var(--radius-md);
+      padding: 9px 11px 9px;
+      background:
+        linear-gradient(135deg, rgba(245, 182, 104, 0.12), rgba(9, 12, 16, 1));
+      border: 1px solid rgba(245, 182, 104, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .week::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(245, 182, 104, 0.14), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .week:hover::after {
+      opacity: 1;
     }
 
     .week-title {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--accent);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.14em;
     }
 
     .week h3 {
-      margin: 0 0 4px;
-      font-size: 1rem;
+      margin: 0 0 3px;
+      font-size: 0.98rem;
     }
 
     .week p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+      color: #e1e5f0;
     }
+
+    /* Meta grid */
 
     .meta-grid {
       display: grid;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 10px;
       font-size: 0.9rem;
       color: var(--muted);
     }
@@ -285,25 +370,33 @@
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      border-radius: 10px;
+      border-radius: var(--radius-md);
       padding: 8px 10px;
-      background: rgba(8, 10, 15, 0.96);
-      border: 1px dashed rgba(245, 182, 104, 0.2);
+      background: radial-gradient(
+        circle at left,
+        rgba(245, 182, 104, 0.08),
+        rgba(9, 11, 16, 1)
+      );
+      border: 1px solid rgba(245, 182, 104, 0.16);
     }
 
     .meta-label {
       font-weight: 500;
-      color: #d7dde8;
+      color: #e3e7f2;
+      font-size: 0.86rem;
     }
 
     .meta-value {
       text-align: right;
+      font-size: 0.86rem;
     }
+
+    /* Instructor */
 
     .instructor {
       display: grid;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 6px;
       font-size: 0.94rem;
       color: var(--muted);
     }
@@ -311,6 +404,7 @@
     .instructor-name {
       font-weight: 600;
       color: #ffffff;
+      font-size: 0.96rem;
     }
 
     .cta-final {
@@ -325,19 +419,88 @@
       grid-column: 1 / -1;
     }
 
+    /* Form */
+
+    .form-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .form-label {
+      display: grid;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    .form-label span {
+      color: #dde3f0;
+    }
+
+    .input,
+    .textarea {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: #05070c;
+      color: #f5f5f5;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .input:focus,
+    .textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(245, 182, 104, 0.3);
+      background: #05060a;
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 4px 0 0;
+    }
+
+    /* Footer */
+
     footer {
-      margin-top: 32px;
+      margin-top: 26px;
       font-size: 0.78rem;
       color: var(--muted);
       text-align: center;
-      opacity: 0.8;
+      opacity: 0.82;
     }
 
     a {
       color: var(--accent);
     }
 
-    @media (min-width: 720px) {
+    /* Responsive */
+
+    @media (max-width: 719px) {
+      .hero-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-meta {
+        text-align: left;
+        justify-items: start;
+      }
+      .hero-meta-pill {
+        order: -1;
+        margin-bottom: 4px;
+      }
+    }
+
+    @media (min-width: 760px) {
       main {
         grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
         align-items: start;
@@ -365,8 +528,11 @@
           rapidly shifting AI landscape.
         </p>
         <div class="hero-meta">
-          <div><strong>4 weeks</strong> · live interactive sessions</div>
-          <div>Small group · space limited for the pilot</div>
+          <div class="hero-meta-pill">
+            <span class="hero-meta-pill-dot"></span>
+            Small group · high interaction
+          </div>
+          <div><strong>4 weeks</strong> · live sessions + Q&amp;A</div>
           <div>Designed for creatives, professionals &amp; the AI-curious</div>
         </div>
       </div>
@@ -384,6 +550,7 @@
 
     <main id="details">
       <section class="section">
+        <div class="section-label">Who it's for</div>
         <h2>Is this for you?</h2>
         <p>
           This workshop is for people who sense AI is going to shape the rest of
@@ -405,7 +572,8 @@
       </section>
 
       <section class="section">
-        <h2>What you’ll learn</h2>
+        <div class="section-label">Curriculum</div>
+        <h2>What you’ll learn over 4 weeks</h2>
         <p>
           Each week combines live teaching, live demos, and time for questions.
           You’ll see real workflows in action and build your own as we go.
@@ -458,6 +626,7 @@
       </section>
 
       <section class="section">
+        <div class="section-label">Details</div>
         <h2>Format, schedule &amp; investment</h2>
         <p>
           This first run is a <strong>pilot cohort</strong>, which means you get
@@ -470,14 +639,14 @@
             <div class="meta-label">Format</div>
             <div class="meta-value">
               4 × live 90-minute Zoom sessions<br />
-              + optional Q&amp;A / office hours
+              + optional weekly Q&amp;A / office hours
             </div>
           </div>
 
           <div class="meta-item">
             <div class="meta-label">When</div>
             <div class="meta-value">
-              Next cohort: dates &amp; times will be finalized with the pilot group.<br />
+              Next cohort: dates &amp; times finalized with the pilot group.<br />
               (You’ll be asked about your availability when you apply.)
             </div>
           </div>
@@ -486,7 +655,7 @@
             <div class="meta-label">Investment</div>
             <div class="meta-value">
               Pilot pricing: <strong>$150–$250 USD</strong><br />
-              (Sliding scale available for this first run.)
+              Sliding scale available for this first run.
             </div>
           </div>
 
@@ -494,13 +663,14 @@
             <div class="meta-label">Group size</div>
             <div class="meta-value">
               Intentionally small (<strong>~8–15 people</strong>)<br />
-              so there’s room for real conversation.
+              to keep room for real conversation.
             </div>
           </div>
         </div>
       </section>
 
       <section class="section section--span">
+        <div class="section-label">Instructor</div>
         <h2>About your instructor</h2>
         <div class="instructor">
           <p class="instructor-name">Derek Bernard</p>
@@ -533,6 +703,7 @@
       </section>
 
       <section class="section section--span" id="apply">
+        <div class="section-label">Apply</div>
         <h2>Apply for the pilot cohort</h2>
         <p>
           This first round is intentionally small so we can keep it honest,
@@ -543,112 +714,70 @@
         <form
           action="https://formspree.io/f/your_form_id_here"
           method="POST"
-          style="display: grid; gap: 10px; margin-top: 12px;"
         >
-          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
-            <span>Your name</span>
+          <div class="form-grid">
+            <label class="form-label">
+              <span>Your name</span>
+              <input class="input" type="text" name="name" required />
+            </label>
+
+            <label class="form-label">
+              <span>Email</span>
+              <input class="input" type="email" name="email" required />
+            </label>
+
+            <label class="form-label">
+              <span>What do you do, and why are you interested in this workshop?</span>
+              <textarea
+                class="textarea"
+                name="why"
+                rows="4"
+                required
+              ></textarea>
+            </label>
+
+            <label class="form-label">
+              <span>Anything specific you’d love to get out of the 4 weeks?</span>
+              <textarea
+                class="textarea"
+                name="goals"
+                rows="3"
+              ></textarea>
+            </label>
+
+            <label class="form-label">
+              <span>Rough availability (time zones welcome)</span>
+              <input
+                class="input"
+                type="text"
+                name="availability"
+                placeholder="e.g. Weeknights after 6pm PT, weekends, etc."
+              />
+            </label>
+
             <input
-              type="text"
-              name="name"
-              required
-              style="
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #252b36;
-                background: #050608;
-                color: #f5f5f5;
-              "
+              type="hidden"
+              name="_subject"
+              value="New Thinking & Working with AI pilot application"
             />
-          </label>
 
-          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
-            <span>Email</span>
-            <input
-              type="email"
-              name="email"
-              required
-              style="
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #252b36;
-                background: #050608;
-                color: #f5f5f5;
-              "
-            />
-          </label>
+            <button
+              type="submit"
+              class="btn-primary"
+              style="margin-top: 2px; width: fit-content;"
+            >
+              Submit application
+            </button>
 
-          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
-            <span>What do you do, and why are you interested in this workshop?</span>
-            <textarea
-              name="why"
-              rows="4"
-              required
-              style="
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #252b36;
-                background: #050608;
-                color: #f5f5f5;
-                resize: vertical;
-              "
-            ></textarea>
-          </label>
-
-          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
-            <span>Anything specific you’d love to get out of the 4 weeks?</span>
-            <textarea
-              name="goals"
-              rows="3"
-              style="
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #252b36;
-                background: #050608;
-                color: #f5f5f5;
-                resize: vertical;
-              "
-            ></textarea>
-          </label>
-
-          <label style="display: grid; gap: 4px; font-size: 0.9rem;">
-            <span>Rough availability (time zones welcome)</span>
-            <input
-              type="text"
-              name="availability"
-              placeholder="e.g. Weeknights after 6pm PT, weekends, etc."
-              style="
-                padding: 8px 10px;
-                border-radius: 8px;
-                border: 1px solid #252b36;
-                background: #050608;
-                color: #f5f5f5;
-              "
-            />
-          </label>
-
-          <!-- Optional hidden subject line for Formspree emails -->
-          <input
-            type="hidden"
-            name="_subject"
-            value="New Thinking & Working with AI pilot application"
-          />
-
-          <button
-            type="submit"
-            class="btn-primary"
-            style="margin-top: 4px; width: fit-content;"
-          >
-            Submit application
-          </button>
-
-          <p style="font-size: 0.8rem; color: #a5acb8; margin: 4px 0 0;">
-            I’ll review your application and follow up with details on dates, pricing,
-            and payment. There’s no commitment until you confirm your spot.
-          </p>
+            <p class="helper-text">
+              I’ll review your application and follow up with details on dates, pricing,
+              and payment. There’s no commitment until you confirm your spot.
+            </p>
+          </div>
         </form>
 
-        <div style="margin-top: 16px; border-top: 1px solid #252b36; padding-top: 12px;">
-          <p style="font-size: 0.9rem; color: #a5acb8; margin: 0 0 6px;">
+        <div style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+          <p style="font-size: 0.9rem; color: var(--muted); margin: 0 0 6px;">
             Prefer to talk it through first?
           </p>
           <a
@@ -671,7 +800,6 @@
   </div>
 
   <script>
-    // Year updater
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
